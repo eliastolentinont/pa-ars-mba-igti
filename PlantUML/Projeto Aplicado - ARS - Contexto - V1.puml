@@ -1,0 +1,21 @@
+@startuml SHOW_PERSON_PORTRAIT() Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+'!include <archimate/Archimate>
+
+
+SHOW_PERSON_OUTLINE()
+'SHOW_PERSON_PORTRAIT()
+'LAYOUT_LEFT_RIGHT()
+
+Person(app_user, "Usuário do App", "Paciente que usa o App e está sendo monitorado")
+'System(web_app,"Aplicativo", "Monitora o usuário, entra em contato em caso de emergência e oferece outras funcionalidades")
+System(android_app,"Aplicativo", "Monitora o usuário, entra em contato em caso de emergência e oferece outras funcionalidades")
+'System(ios_app,"Aplicativo", "Monitora o usuário, entra em contato em caso de emergência e oferece outras funcionalidades")
+System_Ext(clinic_system,"Sistema da clínica", "Gerencia as informações da clínica")
+'Container(web_app, "Web Application", "C#, ASP.NET Core 2.1 MVC", "Allows users to compare multiple Twitter timelines")
+
+'Rel(app_user, android_app, "Usa")
+app_user ..> android_app: Usa
+android_app ..> clinic_system: usa
+
+@enduml

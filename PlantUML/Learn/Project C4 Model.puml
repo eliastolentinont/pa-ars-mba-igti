@@ -1,0 +1,62 @@
+@startuml SHOW_PERSON_PORTRAIT() Sample
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+
+SHOW_PERSON_OUTLINE()
+'SHOW_PERSON_PORTRAIT()
+'LAYOUT_LEFT_RIGHT()
+
+Person(AppUser, "Usuário do App", "Paciente que usa o App e está sendo monitorado")
+System(App,"Aplicativo")
+System_Ext(clinicSystem,"Sistema da clínica")
+Container(web_app, "Web Application", "C#, ASP.NET Core 2.1 MVC", "Allows users to compare multiple Twitter timelines")
+
+
+System_Boundary(c1, 'Sample') {
+    Container(web_app, "Web Application", "C#, ASP.NET Core 2.1 MVC", "Allows users to compare multiple Twitter timelines")
+    Container(web_app2, "Web Application 2", "C#, ASP.NET Core 2.1 MVC", "Allows users to compare multiple Twitter timelines")
+    Person(person, "Person with sprite")
+
+}
+System_Boundary(c2, 'Sample2') {
+    System(twitter, "Twitter")
+    Person(person2, "Person with sprite", $sprite="person2")
+}
+ContainerDb(DBSql,"Banco de dados","SQL","Arquivar")
+
+' if a person is combined with a sprite then the rectangle layout is used again
+
+Rel(admin, web_app, "Uses", "HTTPS")
+Rel(admin, web_app2, "Uses", "HTTPS")
+Rel(admin, person, "Uses", "HTTPS")
+Rel(person, admin, "Uses", "HTTPS")
+Rel(person2, person, "Uses", "HTTPS")
+Rel(web_app2, DBSql, "Uses", "HTTPS")
+Rel(DBSql, web_app2, "Uses", "HTTPS")
+Rel(DBSql, web_app, "Uses", "HTTPS")
+Rel(twitter, person, "Uses", "HTTPS")
+Rel(twitter, person2, "Uses", "HTTPS")
+Rel(person, twitter, "Uses", "HTTPS")
+Rel(web_app, web_app2, "Gets tweets from", "HTTPS")
+Rel(web_app2, twitter, "Gets tweets from", "HTTPS")
+
+node "Server 1" {
+  database Db1 [
+    db 1
+  ]
+}
+node "Server 2" {
+  database Db2 [
+    db 2
+  ]
+}
+node "Server 3" {
+  database Db3 [
+    db 3
+  ]
+}
+
+Db1 ..> Db2: replication
+Db1 ..> Db3: replication
+
+@enduml
