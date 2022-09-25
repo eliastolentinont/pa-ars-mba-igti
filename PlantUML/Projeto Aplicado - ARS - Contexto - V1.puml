@@ -1,21 +1,16 @@
-@startuml SHOW_PERSON_PORTRAIT() Sample
+@startuml SHOW_PERSON_PORTRAIT() Saude Online - Contexto
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
-'!include <archimate/Archimate>
-
 
 SHOW_PERSON_OUTLINE()
-'SHOW_PERSON_PORTRAIT()
-'LAYOUT_LEFT_RIGHT()
 
-Person(app_user, "Usuário do App", "Paciente que usa o App e está sendo monitorado")
-'System(web_app,"Aplicativo", "Monitora o usuário, entra em contato em caso de emergência e oferece outras funcionalidades")
-System(android_app,"Aplicativo", "Monitora o usuário, entra em contato em caso de emergência e oferece outras funcionalidades")
-'System(ios_app,"Aplicativo", "Monitora o usuário, entra em contato em caso de emergência e oferece outras funcionalidades")
-System_Ext(clinic_system,"Sistema da clínica", "Gerencia as informações da clínica")
-'Container(web_app, "Web Application", "C#, ASP.NET Core 2.1 MVC", "Allows users to compare multiple Twitter timelines")
+title <size:18>Diagrama de Contexto do Sistema</size>\n<size:11>Diagrama de contexto do sistema Saúde Online</size>
 
-'Rel(app_user, android_app, "Usa")
-app_user ..> android_app: Usa
-android_app ..> clinic_system: usa
+Person(app_user, "Usuário", "Paciente que usa o App e está sendo monitorado")
+System(app_system,"Saúde Online", "Monitora a saude do usuário, além de outras funcionalidades")
+'System(app_system,"Saúde Online", "Monitora o usuário, entra em contato em caso de emergência, além de outras funcionalidades")
+System_Ext(clinic_system,"Sistema da clínica", "Gerencia as informações da clínica e dos pacientes")
 
+app_user ..> app_system: Acessa a aplicação
+app_system ..> clinic_system: Envia requisições
+clinic_system ..> app_system: Recebe informações solicitadas 
 @enduml

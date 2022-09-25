@@ -1,0 +1,36 @@
+@startuml SHOW_PERSON_PORTRAIT() Saude Online - MobileComponents
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+SHOW_PERSON_OUTLINE()
+'LAYOUT_LEFT_RIGHT()
+
+title <size:18>Diagrama de Componentes - Aplicação Mobile</size>\n<size:11>Diagrama de componentes do sistema Saúde Online</size>
+
+Person(app_user, "Usuário do App", "Paciente que usa o App e está sendo monitorado")
+
+Container_Boundary(c1, 'Aplicação Mobile') {
+'System(web_app,"Aplicativo", "Monitora o usuário, entra em contato em caso de emergência e oferece outras funcionalidades")
+Component(comp_app1,"Aplicação Mobile1", "Monitora a saude do usuário, além de outras funcionalidades")
+Component(comp_app2,"Aplicação Mobile2", "Monitora a saude do usuário, além de outras funcionalidades")
+Component(comp_app3,"Aplicação Mobile3", "Monitora a saude do usuário, além de outras funcionalidades")
+}
+
+Container(apis_app,"SaudeAPIs", "Provê as funcionalidades do Saúde Online")
+ContainerDb(database,"Banco de dados","SQL","Armazena todos os dados\n")
+
+System_Ext(clinic_system,"Sistema da clínica", "Gerencia as informações da clínica e dos pacientes")
+'Container(web_app, "Web Application", "C#, ASP.NET Core 2.1 MVC", "Allows users to compare multiple Twitter timelines")
+
+'Rel(app_user, android_app, "Usa")
+app_user ..> comp_app1: Acessa a aplicação
+comp_app1 --> apis_app: Envia requisições
+comp_app1 --> comp_app2: Envia requisições
+comp_app1 --> comp_app3: Envia requisições
+comp_app2 --> apis_app: Envia requisições
+apis_app ..> database: Lê e Salva, ????
+apis_app --> clinic_system: Envia e recebe requisições, HTTPS
+'clinic_system ..> mobile_app: Recebe informações solicitadas 
+
+SHOW_LEGEND()
+@enduml

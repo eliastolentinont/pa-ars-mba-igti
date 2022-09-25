@@ -1,13 +1,20 @@
 @startuml SHOW_PERSON_PORTRAIT() Sample
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
-
+'!include <archimate/Archimate>
 
 SHOW_PERSON_OUTLINE()
 'SHOW_PERSON_PORTRAIT()
 'LAYOUT_LEFT_RIGHT()
 
+title <size:18>Diagrama de Contexto do Sistema</size>\n<size:11>Diagrama de contexto do sistema Saúde Online</size>
+caption <size:18>Diagrama de Contexto do Sistema</size>\n<size:11>Diagrama de contexto do sistema Saúde Online</size>
+caption Diagrama de Contexto do Sistema
+footer Diagrama de contexto do sistema Saúde Online
+
 Person(AppUser, "Usuário do App", "Paciente que usa o App e está sendo monitorado")
 System(App,"Aplicativo")
+'System(web_app,"Aplicativo", "Monitora o usuário, entra em contato em caso de emergência e oferece outras funcionalidades")
+'System(ios_app,"Aplicativo", "Monitora o usuário, entra em contato em caso de emergência e oferece outras funcionalidades")
 System_Ext(clinicSystem,"Sistema da clínica")
 Container(web_app, "Web Application", "C#, ASP.NET Core 2.1 MVC", "Allows users to compare multiple Twitter timelines")
 
@@ -26,6 +33,7 @@ ContainerDb(DBSql,"Banco de dados","SQL","Arquivar")
 
 ' if a person is combined with a sprite then the rectangle layout is used again
 
+'Rel(app_user, android_app, "Usa")
 Rel(admin, web_app, "Uses", "HTTPS")
 Rel(admin, web_app2, "Uses", "HTTPS")
 Rel(admin, person, "Uses", "HTTPS")
