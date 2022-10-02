@@ -1,0 +1,1048 @@
+openapi: 3.0.3
+# Incompleto e Inconsistente por trata-se de um trabalho academico onde é necessário demonstrar apenas a tela principal
+info:
+  title: Saúde Online - API DadosClinica
+  description: |-
+    API para o Sistema da Clínica enviar e receber dados referentes ao cadastro e monitoramento dos pacientes.
+    
+  version: 1.0.0
+servers:
+  - url: https://cuidamosbem.swagger.io/api/v1
+tags:
+  - name: paciente
+    description: Dados do Paciente a ser monitorado
+  - name: dispositivo
+    description: Dados do Dispositivo de Monitoramento
+  - name: monitoramento
+    description: Consulta dados dos Monitoramentos dos Pacientes
+paths:
+  /paciente:
+    post:
+      tags:
+        - paciente
+      summary: Cadastra um novo paciente
+      description: Cadastra um novo paciente a ser monitorado
+      operationId: addPatient
+      requestBody:
+        description: Cadastra um novo paciente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Patient'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Patient'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Patient'
+        '405':
+          description: Invalid input
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+    put:
+      tags:
+        - paciente
+      summary: Atualiza o cadastro de um Paciente
+      description: Atualiza o cadastro de um Paciente monitorado
+      operationId: updatePatient
+      requestBody:
+        description: Atualiza o cadastro de um Paciente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Patient'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Patient'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Patient'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /paciente/ativa/{id}:
+    patch:
+      tags:
+        - paciente
+      summary: Ativa o cadastro de um Paciente
+      description: Ativa o cadastro de um Paciente monitorado
+      operationId: activatePatient
+      requestBody:
+        description: Atualiza o cadastro de um Paciente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Patient'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Patient'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Patient'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /paciente/inativa/{id}:
+    patch:
+      tags:
+        - paciente
+      summary: Inativa o cadastro de um Paciente
+      description: Inativa o cadastro de um Paciente monitorado
+      operationId: deactivatePatient
+      requestBody:
+        description: Atualiza o cadastro de um Paciente
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Patient'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Patient'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Patient'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets              
+  /dispositivos/atualiza:
+    patch:
+      tags:
+        - paciente
+      summary: Atualiza os Dispositivos de um Paciente
+      description: Atualiza os Dispositivos de um Paciente Monitorado
+      operationId: updatePatientDevices
+      parameters:
+        - name: status
+          in: query
+          description: Status values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: available
+            enum:
+              - available
+              - pending
+              - sold
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Patient'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Patient'
+        '400':
+          description: Invalid status value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /dispositivos/remove:
+    patch:
+      tags:
+        - paciente
+      summary: Remove os Dispositivos de um Paciente
+      description: Remove os Dispositivos de um Paciente Monitorado
+      operationId: removePatientDevices
+      parameters:
+        - name: tags
+          in: query
+          description: Tags to filter by
+          required: false
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Patient'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Patient'
+        '400':
+          description: Invalid tag value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /contatos/atualiza:
+    patch:
+      tags:
+        - paciente
+      summary: Atualiza os Contatos de um Paciente
+      description: Atualiza os Contatos de um Paciente Monitorado
+      operationId: updatePatientContacts
+      parameters:
+        - name: status
+          in: query
+          description: Status values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: available
+            enum:
+              - available
+              - pending
+              - sold
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Patient'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Patient'
+        '400':
+          description: Invalid status value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets            
+  /dispositivo:
+    post:
+      tags:
+        - dispositivo
+      summary: Cadastra um novo Dispositivo
+      description: Returns a map of status codes to quantities
+      operationId: getInventory
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: integer
+                  format: int32
+      security:
+        - api_key: []
+    put:
+      tags:
+        - dispositivo
+      summary: Atualiza o cadastro de um novo Dispositivo
+      description: Place a new order in the store
+      operationId: placeOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientEnable'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PatientEnable'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatientEnable'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientEnable'
+        '405':
+          description: Invalid input
+  /dispositivo/modelo/:
+    post:
+      tags:
+        - dispositivo
+      summary: Cadastro um novo Modelo de Dispositivo
+      description: For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
+      operationId: getOrderById
+      parameters:
+        - name: orderId
+          in: path
+          description: ID of order that needs to be fetched
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientEnable'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PatientEnable'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Order not found
+    put:
+      tags:
+        - dispositivo
+      summary: Atualiza o cadastro do Modelo de um Dispositivo
+      description: For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
+      operationId: getOrderById
+      parameters:
+        - name: orderId
+          in: path
+          description: ID of order that needs to be fetched
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientEnable'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PatientEnable'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Order not found          
+  /dispositivo/marca/:          
+    post:
+      tags:
+        - dispositivo
+      summary: Cadastra um nova Marca de Dispositivos
+      description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+      operationId: deleteOrder
+      parameters:
+        - name: orderId
+          in: path
+          description: ID of the order that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Order not found
+    put:
+      tags:
+        - dispositivo
+      summary: Atualiza o cadastro de uma Marca de Dispositivos
+      description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+      operationId: deleteOrder
+      parameters:
+        - name: orderId
+          in: path
+          description: ID of the order that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Order not found          
+  /dispositivo/parametro/:          
+    post:
+      tags:
+        - dispositivo
+      summary: Cadastra um novo Parametro de Monitoramento
+      description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+      operationId: deleteOrder
+      parameters:
+        - name: orderId
+          in: path
+          description: ID of the order that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Order not found
+    put:
+      tags:
+        - dispositivo
+      summary: Atualiza o cadastro de Parâmetro de Monitoramento
+      description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+      operationId: deleteOrder
+      parameters:
+        - name: orderId
+          in: path
+          description: ID of the order that needs to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Order not found          
+  /monitoramento/{paciente}/parametro:
+    get:
+      tags:
+        - monitoramento
+      summary: Consulta Monitoramentos de um Paciente por Parâmetro e Período
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceBrand'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DeviceBrand'
+  /monitoramento/{paciente}/periodo:
+    get:
+      tags:
+        - monitoramento
+      summary: Consulta Monitoramentos de um Paciente por Período
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceBrand'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DeviceBrand'
+  /monitoramento/{paciente}/diagnostico:
+    get:
+      tags:
+        - monitoramento
+      summary: Consulta Monitoramentos de um Paciente por Diagnóstico
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceBrand'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DeviceBrand'
+  /monitoramento/parametro:
+    get:
+      tags:
+        - monitoramento
+      summary: Consulta Monitoramentos por Parâmetro e Período
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceBrand'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DeviceBrand'
+  /monitoramento/periodo:
+    get:
+      tags:
+        - monitoramento
+      summary: Consulta Monitoramentos por Período
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceBrand'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DeviceBrand'
+  /monitoramento/diagnostico:
+    get:
+      tags:
+        - monitoramento
+      summary: Consulta Monitoramentos por Diagnostico
+      description: This can only be done by the logged in user.
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DeviceBrand'
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceBrand'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DeviceBrand'
+components:
+  schemas:
+    Patient:
+      required:
+        - name
+        - photoUrls
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 287
+        name:
+          type: string
+          example: Fernando Pontes
+        dispositivos:
+          $ref: '#/components/schemas/Device'
+        photoUrls:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            type: string
+            xml:
+              name: photoUrl
+        tags:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/DeviceParameter'
+        status:
+          type: string
+          description: pet status in the store
+          enum:
+            - available
+            - pending
+            - sold
+      xml:
+        name: pet  
+    PatientEnable:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        petId:
+          type: integer
+          format: int64
+          example: 198772
+        quantity:
+          type: integer
+          format: int32
+          example: 7
+        shipDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+          description: Order Status
+          example: approved
+          enum:
+            - placed
+            - approved
+            - delivered
+        complete:
+          type: boolean
+      xml:
+        name: order
+    PatientDisable:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        username:
+          type: string
+          example: fehguy
+        address:
+          type: string
+          xml:
+            name: addresses
+            wrapped: true
+      xml:
+        name: customer
+    PatientDeviceUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        username:
+          type: string
+          example: fehguy
+        address:
+          type: string
+          xml:
+            name: addresses
+            wrapped: true
+      xml:
+        name: customer        
+    PatientDeviceRemove:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        username:
+          type: string
+          example: fehguy
+        address:
+          type: string
+          xml:
+            name: addresses
+            wrapped: true
+      xml:
+        name: customer        
+    PatientContactsUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        username:
+          type: string
+          example: fehguy
+        address:
+          type: string
+          xml:
+            name: addresses
+            wrapped: true
+      xml:
+        name: customer        
+    Device:
+      type: object
+      properties:
+        street:
+          type: string
+          example: 437 Lytton
+        city:
+          type: string
+          example: Palo Alto
+        state:
+          type: string
+          example: CA
+        zip:
+          type: string
+          example: '94301'
+      xml:
+        name: address
+    DeviceUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        model:
+          type: array
+          xml:
+            name: deviceModel
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/DeviceModel'
+      xml:
+        name: device
+    DeviceModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        modelo:
+          type: string
+          example: Cardiaco
+        marca:
+          type: string
+          example: Ching
+        ano:
+          type: integer
+          example: 2021
+        dataCadastro:
+          type: string
+          format: date-time
+          pattern: '\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}'
+          example: 2022-03-26T08:14:23Z
+      xml:
+        name: deviceModel
+    DeviceModelUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        modelo:
+          type: string
+          example: Cardiaco
+        marca:
+          type: string
+          example: Ching
+        ano:
+          type: integer
+          example: 2021
+        dataCadastro:
+          type: string
+          format: date-time
+          pattern: '\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}'
+          example: 2022-03-26T08:14:23Z
+      xml:
+        name: deviceModel
+    DeviceBrand:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: theUser
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: James
+        email:
+          type: string
+          example: john@email.com
+        password:
+          type: string
+          example: '12345'
+        phone:
+          type: string
+          example: '12345'
+        userStatus:
+          type: integer
+          description: User Status
+          format: int32
+          example: 1
+      xml:
+        name: user
+    DeviceBrandUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: theUser
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: James
+        email:
+          type: string
+          example: john@email.com
+        password:
+          type: string
+          example: '12345'
+        phone:
+          type: string
+          example: '12345'
+        userStatus:
+          type: integer
+          description: User Status
+          format: int32
+          example: 1
+      xml:
+        name: user
+    DeviceParameter:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      xml:
+        name: tag
+    DeviceParameterUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      xml:
+        name: tag
+    MonitorPatientParameter:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
+    MonitorPatientPeriod:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
+    MonitorPatientDiagnostic:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
+    MonitorParameter:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
+    MonitorPeriod:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
+    MonitorDiagnostic:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+      xml:
+        name: '##default'
+  requestBodies:
+    Pet:
+      description: Pet object that needs to be added to the store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Patient'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Patient'
+    UserArray:
+      description: List of user object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/DeviceBrand'
+  securitySchemes:
+    petstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          scopes:
+            write:pets: modify pets in your account
+            read:pets: read your pets
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
