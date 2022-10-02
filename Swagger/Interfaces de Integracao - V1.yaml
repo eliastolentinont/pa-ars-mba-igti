@@ -1,7 +1,7 @@
 openapi: 3.0.3
 # Incompleto e Inconsistente por trata-se de um trabalho academico onde é necessário demonstrar apenas a tela principal
 info:
-  title: Saúde Online - API DadosClinica
+  title: Saúde Online - API IntegracaoClinica
   description: |-
     API para o Sistema da Clínica enviar e receber dados referentes ao cadastro e monitoramento dos pacientes.
     
