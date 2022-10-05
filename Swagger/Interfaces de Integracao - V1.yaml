@@ -52,6 +52,7 @@ paths:
         - petstore_auth:
             - write:pets
             - read:pets
+  /paciente/{id}:            
     put:
       tags:
         - paciente
