@@ -288,46 +288,46 @@ paths:
         - petstore_auth:
             - write:pets
             - read:pets
-  /contatos/atualiza:
-    patch:
-      tags:
-        - paciente
-      summary: Atualiza os Contatos de um Paciente
-      description: Atualiza os Contatos de um Paciente Monitorado
-      operationId: updatePatientContacts
-      parameters:
-        - name: status
-          in: query
-          description: Status values that need to be considered for filter
-          required: false
-          explode: true
-          schema:
-            type: string
-            default: available
-            enum:
-              - available
-              - pending
-              - sold
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Patient'          
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Patient'
-        '400':
-          description: Invalid status value
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets            
+  # /contatos/atualiza:
+  #   patch:
+  #     tags:
+  #       - paciente
+  #     summary: Atualiza os Contatos de um Paciente
+  #     description: Atualiza os Contatos de um Paciente Monitorado
+  #     operationId: updatePatientContacts
+  #     parameters:
+  #       - name: status
+  #         in: query
+  #         description: Status values that need to be considered for filter
+  #         required: false
+  #         explode: true
+  #         schema:
+  #           type: string
+  #           default: available
+  #           enum:
+  #             - available
+  #             - pending
+  #             - sold
+  #     responses:
+  #       '200':
+  #         description: successful operation
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/Patient'          
+  #           application/xml:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/Patient'
+  #       '400':
+  #         description: Invalid status value
+  #     security:
+  #       - petstore_auth:
+  #           - write:pets
+  #           - read:pets            
   /dispositivo:
     post:
       tags:
