@@ -3,10 +3,13 @@
 ## MONITORAMENTO REMOTO DE PACIENTES
 ### Projeto Aplicado do MBA de Arquitetura de Software - IGTI
 
-<br/><br/>
+***
+<br/>
 
 ## Descrição
 Projeto arquitetural da solução de Monitoramento Remoto de Saúde da clínica Cuidamos Bem.
+
+<br/>
 
 ## Requisitos Funcionais e Não Funcionais<br/>
 
