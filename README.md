@@ -2,9 +2,16 @@
 # SAÚDE ONLINE
 ## MONITORAMENTO REMOTO DE PACIENTES
 ### Projeto Aplicado do MBA de Arquitetura de Software - IGTI
+Elias Tolentino de Almeida Neto
+Outubro de 2022
 
 ***
 <br/>
 
 ## Descrição
 Projeto arquitetural da solução de Monitoramento Remoto de Saúde da clínica Cuidamos Bem.
+
+<br/>
+
+
+[Documentação do projeto](https://github.com/eliastolentinont/pa-ars-mba-igti/wiki/O-projeto)
