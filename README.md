@@ -14,4 +14,4 @@ Projeto arquitetural da solução de Monitoramento Remoto de Saúde da clínica 
 <br/>
 
 
-[Documentação do projeto](https://github.com/eliastolentinont/pa-ars-mba-igti/wiki/O-projeto)
+[Documentação do projeto](https://github.com/eliastolentinont/pa-ars-mba-igti/wiki)
